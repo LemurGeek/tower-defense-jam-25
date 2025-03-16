@@ -4,7 +4,7 @@ Tower defense for [Love2D Game Jam 2025](https://itch.io/jam/love2d-jam-2025)
 
 Check this for speedrun how to code in Lua: https://learnxinyminutes.com/lua/
 
-**END DATE**: MARCH 14 AT 3AM.
+**END DATE**: MARCH 24 AT 3AM.
 
 # Color Palette
 
@@ -43,6 +43,9 @@ Check this for speedrun how to code in Lua: https://learnxinyminutes.com/lua/
   - [ ] Money System
   - [ ] Shop
 - Improve code structure
+- [ ] Assets
+  - [ ] Tower assets
+  - [ ] Enemy assets
 
 ## Ideas / Backlog
 
