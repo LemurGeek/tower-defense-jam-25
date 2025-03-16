@@ -7,8 +7,9 @@ function Tower:new(x, y)
     local obj = {
         x = x, y = y,
         range = 100,
-        fireRate = 1,
-        cooldown = 0
+        fireRate = 0.5,
+        cooldown = 0,
+        damage = 15
     }
     setmetatable(obj, Tower)
     return obj
@@ -21,7 +22,7 @@ function Tower:update(dt, enemies)
             local dist = math.sqrt((enemy.x - self.x)^2 + (enemy.y - self.y)^2)
             if dist < self.range then
                 self.cooldown = self.fireRate
-                table.insert(projectiles, Projectile:new(self.x, self.y, enemy))
+                table.insert(projectiles, Projectile:new(self.x, self.y, enemy, self.damage))
                 break
             end
         end

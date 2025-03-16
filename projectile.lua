@@ -1,11 +1,12 @@
 Projectile = {}
 Projectile.__index = Projectile
 
-function Projectile:new(x, y, target)
+function Projectile:new(x, y, target, damage)
     local obj = {
         x = x, y = y,
         speed = 200,
-        target = target
+        target = target,
+        damage = damage
     }
     setmetatable(obj, Projectile)
     return obj
@@ -16,7 +17,7 @@ function Projectile:update(dt)
     local dist = math.sqrt(dirX^2 + dirY^2)
 
     if dist < 5 then
-        self.target.health = self.target.health - 20
+        self.target:takeDamage(self.damage)
         return false -- Remove projectile
     end
 
