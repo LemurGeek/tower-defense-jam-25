@@ -27,7 +27,7 @@ Check this for speedrun how to code in Lua: https://learnxinyminutes.com/lua/
 
 ## Backlog
 
-- [ ] Towers Placement
+- [x] Towers Placement
   - [ ] Tower Types
 - [x] ~~Create Main Tower / Base~~
   - [x] ~~Health~~

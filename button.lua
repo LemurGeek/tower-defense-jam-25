@@ -11,7 +11,7 @@ function Button:new()
         color = {0.2, 0.5, 0.8}, 
         colorHover = {0.3, 0.7, 1}, 
         colorClick = {0.1, 0.3, 0.6}, 
-        text = "Click", 
+        text = "Tower", 
         buttonClick = false -- Boolean variable for click event, TODO: work on different logic
     }
     setmetatable(obj, Button)

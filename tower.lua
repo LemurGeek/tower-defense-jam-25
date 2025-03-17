@@ -31,7 +31,7 @@ end
 
 function Tower:draw()
     love.graphics.setColor(love.math.colorFromBytes(92, 139, 147))
-    love.graphics.circle("fill", self.x, self.y, 15)
+    love.graphics.circle("fill", self.x, self.y, gridSize / 2)
 end
 
 return Tower
