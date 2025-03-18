@@ -17,11 +17,15 @@ function love.load()
   projectiles = {}
   spawnTimer = 2
   base = Base:new(path[#path].x, path[#path].y) -- Base at the end of the path (TODO: Improve this logic later)
-  buttons = {Button:new()}
+  buttons = {
+    -- ID, x, y , width, height, color, hoverColor, clickColor, text, buttonClick
+    Button:new(0, 250, 550, 100, 50, {0.2, 0.5, 0.8}, {0.3, 0.7, 1}, {0.1, 0.3, 0.6}, "Tower", false), 
+    Button:new(1, 350, 550, 100, 50, {0.2, 0.5, 0.8}, {0.3, 0.7, 1}, {0.1, 0.3, 0.6}, "Tower", false)
+  }
   font = love.graphics.newFont(20)  -- Font
 
   towerSelected = false
-  selectedTowerType = "normal"  -- Add a tower type selector for normal or slow tower
+  selectedTowerType = 0  -- Add a tower type selector for normal or slow tower
 
   -- Grid System
   for y = 1, gridHeight do
@@ -60,10 +64,13 @@ function love.update(dt)
 
   -- Update buttons
   for _, button in ipairs(buttons) do
-    button:update()
-    if button.buttonClick then
-      towerSelected = not towerSelected
-    end
+    button:update(
+      function() 
+        towerSelected = not towerSelected
+        selectedTowerType = button.id
+        print(selectedTowerType) 
+      end
+    )
   end
 end
 
@@ -80,18 +87,18 @@ function love.mousepressed(x, y, button)
       -- Randomly choose between normal tower (1) or slow tower (2)
       local towerType = math.random(1, 2)
 
-      local newTower
-      if towerType == 1 then
+      if selectedTowerType == 0 then
         newTower = Tower:new(snappedX, snappedY)  -- Create a normal tower
-      else
+      elseif selectedTowerType == 1 then
         newTower = Tower:createSlowTower(snappedX, snappedY)  -- Create a slow tower
       end
 
       table.insert(towers, newTower)
       grid[gridY][gridX] = newTower -- Mark tile as occupied
+
+      towerSelected = not towerSelected
     end
 
-    towerSelected = not towerSelected
   end
 end
 

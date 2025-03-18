@@ -2,23 +2,24 @@ Button = {}
 Button.__index = Button
 
 -- Turn into parameters
-function Button:new()
+function Button:new(id, x, y, width, height, color, colorHover, colorClick, text, buttonClick)
     local obj = { 
-        x = 350, 
-        y = 550, 
-        width = 100,
-        height = 50, 
-        color = {0.2, 0.5, 0.8}, 
-        colorHover = {0.3, 0.7, 1}, 
-        colorClick = {0.1, 0.3, 0.6}, 
-        text = "Tower", 
-        buttonClick = false -- Boolean variable for click event, TODO: work on different logic
+        id = id,
+        x = x, 
+        y = y,
+        width = width,
+        height = height,
+        color = color,
+        colorHover = colorHover,
+        colorClick = colorClick,
+        text = text,
+        buttonClick = buttonClick -- Boolean variable for click event, TODO: work on different logic
     }
     setmetatable(obj, Button)
     return obj
 end
 
-function Button:update()
+function Button:update(action)
     -- Mouse position
     local mouseX, mouseY = love.mouse.getPosition()
 
@@ -34,7 +35,7 @@ function Button:update()
         else
             if self.buttonClick then
                 -- Acción cuando se hace clic (si es necesario)
-                print("¡Botón presionado!")
+                action()
                 self.buttonClick = false
             end
         end
