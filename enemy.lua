@@ -20,11 +20,14 @@ end
 
 function Enemy:takeDamage(damage)
   self.health = self.health - damage
-  self.speed = self.speed - damage
 end
 
 function Enemy:dealDamage()
   self.target:takeDamage(self.damage)
+end
+
+function Enemy:speedDown()
+    self.speed = self.speed * 0.5
 end
 
 function Enemy:update(dt)

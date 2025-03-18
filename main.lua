@@ -11,12 +11,8 @@ Enemy = require("enemy")
 Button = require("button")
 path = require("path")
 
--- NOTE: Tables are like js objects, but also work as arrays it depends how are created. Check this for speedrun how to code in Lua: https://learnxinyminutes.com/lua/ 
-
--- Load function is called once at the beginning of the game, this is where we initialize our variables
 function love.load()
   enemies = {}
-  -- towers = {Tower:new(150, 150)}
   towers = {}
   projectiles = {}
   spawnTimer = 2
@@ -24,7 +20,8 @@ function love.load()
   buttons = {Button:new()}
   font = love.graphics.newFont(20)  -- Font
 
-  towerSelected = false;
+  towerSelected = false
+  selectedTowerType = "normal"  -- Add a tower type selector for normal or slow tower
 
   -- Grid System
   for y = 1, gridHeight do
@@ -35,7 +32,6 @@ function love.load()
   end
 end
 
--- Update function is called every frame, dt is the time passed since the last frame. We use this function to update our variables and logic.
 function love.update(dt)
   spawnTimer = spawnTimer - dt
   if spawnTimer <= 0 then
@@ -52,22 +48,22 @@ function love.update(dt)
 
   -- Update towers
   for _, tower in ipairs(towers) do
-    tower:update(dt, enemies)
+    tower:update(dt, enemies, projectiles) 
   end
 
-  -- Update projectiles -- TODO: Maybe move this logic to tower.lua
+  -- Update projectiles
   for i = #projectiles, 1, -1 do
     if not projectiles[i]:update(dt) then
       table.remove(projectiles, i)
     end
   end
 
-  -- Update buttons click on a turret, become draggable, click again to place tower, Bloons style
+  -- Update buttons
   for _, button in ipairs(buttons) do
     button:update()
     if button.buttonClick then
       towerSelected = not towerSelected
-    end 
+    end
   end
 end
 
@@ -81,8 +77,16 @@ function love.mousepressed(x, y, button)
       local snappedX = (gridX * gridSize) - (gridSize / 2)
       local snappedY = (gridY * gridSize) - (gridSize / 2)
 
-      -- Create and store the tower
-      local newTower = Tower:new(snappedX, snappedY)
+      -- Randomly choose between normal tower (1) or slow tower (2)
+      local towerType = math.random(1, 2)
+
+      local newTower
+      if towerType == 1 then
+        newTower = Tower:new(snappedX, snappedY)  -- Create a normal tower
+      else
+        newTower = Tower:createSlowTower(snappedX, snappedY)  -- Create a slow tower
+      end
+
       table.insert(towers, newTower)
       grid[gridY][gridX] = newTower -- Mark tile as occupied
     end
@@ -91,9 +95,8 @@ function love.mousepressed(x, y, button)
   end
 end
 
--- Draw function is called every frame, this is where we draw things on the screen, based on our variables and logic.
 function love.draw()
-  love.graphics.setBackgroundColor( love.math.colorFromBytes(43, 40, 33) )
+  love.graphics.setBackgroundColor(love.math.colorFromBytes(43, 40, 33))
 
   base:draw()
 
