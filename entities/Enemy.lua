@@ -26,7 +26,7 @@ end
 
 function mt:update(dt)
   local target = GameState.getCurrent().level.pathPoints[self.targetPathIndex]
-  local dirX, dirY = target.x + const.tilesize / 2 - self.x, target.y + const.tilesize / 2 - self.y
+  local dirX, dirY = target.x - self.x, target.y - self.y
   local dist = math.sqrt(dirX^2 + dirY^2)
 
   if self.speed < self.maxSpeed then
@@ -61,7 +61,7 @@ return {
       h = const.tilesize,
       world = world,
       health = 100,
-      speed = 500,
+      speed = 100,
       maxSpeed = 100,
       health = 100,
       target = target,

@@ -9,10 +9,10 @@ function mt:draw()
 
   -- -- Debbug
 
-  -- font = love.graphics.newFont(10)  -- Set font size to 30
-  -- love.graphics.setFont(font) 
-  -- love.graphics.setColor(love.math.colorFromBytes(62, 105, 88))
-  -- love.graphics.print("X - Y: " .. self.x .. ' - ' .. self.y , self.x, self.y)
+  font = love.graphics.newFont(10)  -- Set font size to 30
+  love.graphics.setFont(font) 
+  love.graphics.setColor(love.math.colorFromBytes(62, 105, 88))
+  love.graphics.print("X - Y: " .. self.x .. ' - ' .. self.y , self.x, self.y)
 end
 
 return {
