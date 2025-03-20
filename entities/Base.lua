@@ -1,4 +1,5 @@
 local const = require('const')
+local GameState = require('GameState')
 
 local mt = {}
 mt.__index = mt
@@ -15,7 +16,7 @@ end
 function mt:takeDamage(damage)
   self.health = self.health - damage
   if self.health <= 0 then
-    print("Game Over!") -- TODO: Print to the screen
+    GameState.getCurrent():trigger('base:kill')
   end
 end
 
@@ -27,6 +28,7 @@ return {
       w = const.tilesize,
       h = const.tilesize,
       health = 100,
+      type = "Base"
     }, mt)
   end
 }

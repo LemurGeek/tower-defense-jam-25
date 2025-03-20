@@ -14,7 +14,8 @@ return {
       x = x,
       y = y,
       w = const.tilesize,
-      h = const.tilesize
+      h = const.tilesize,
+      type = "Wall"
     }, mt)
   end
 }

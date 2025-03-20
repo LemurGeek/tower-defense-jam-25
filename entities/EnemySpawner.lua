@@ -11,9 +11,9 @@ function mt:draw()
 end
 
 function mt:update(dt)
-  -- print('x' .. self.x .. 'y' .. self.y)
   self.spawnTimer = self.spawnTimer - dt
   if self.spawnTimer <= 0 then
+  local world = GameState.getCurrent().world
   GameState.getCurrent().world:add(Enemy.new(self.x + const.tilesize / 2, self.y + const.tilesize / 2))
     self.spawnTimer = 2
   end
@@ -26,6 +26,7 @@ return {
       y = y,
       w = const.tilesize,
       h = const.tilesize,
+      type = "EnemySpawner",
       spawnTimer = 2
     }, mt)
   end

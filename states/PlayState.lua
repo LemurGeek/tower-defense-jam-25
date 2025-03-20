@@ -21,9 +21,9 @@ end
 
 -- Trigger function let you pass some "events" to the game state so a given entity need not to worry how to
 -- deal with some situation.
-function mt:trigger(event, actor, data)
+function mt:trigger(event) -- , actor, data)
   if event == 'base:kill' then
-    -- TODO
+    GameState.setCurrent('Dead')
   end
 end
 

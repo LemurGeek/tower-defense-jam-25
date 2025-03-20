@@ -19,6 +19,19 @@ function mt:remove(item)
   return false  -- Return false if the item was not found
 end
 
+function mt:findItemsByType(typeName)
+  local results = {}
+  for _, item in ipairs(self.items) do
+    if item.type and item.type == typeName then
+      results[#results + 1] = item
+    end
+  end
+  if(#results == 1) then
+    return results[1] -- Return the first matching item
+  end
+  return results -- Return a table of all matching items
+end
+
 return {
   new = function()
     return setmetatable({ items = {} }, mt)

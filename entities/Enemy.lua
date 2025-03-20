@@ -25,7 +25,8 @@ function mt:speedDown()
 end
 
 function mt:update(dt)
-  local target = GameState.getCurrent().level.pathPoints[self.targetPathIndex]
+  local pathPoints = GameState.getCurrent().level.pathPoints
+  local target = pathPoints[self.targetPathIndex]
   local dirX, dirY = target.x - self.x, target.y - self.y
   local dist = math.sqrt(dirX^2 + dirY^2)
 
@@ -34,14 +35,15 @@ function mt:update(dt)
   end
 
   if self.health <= 0 then
+    self.world:remove(self)
     return false
   end
 
   if dist < 5 then
     self.targetPathIndex = self.targetPathIndex + 1
-    if self.targetPathIndex > #GameState.getCurrent().level.pathPoints then
-      GameState.getCurrent().world:remove(self)
-      -- self:dealDamage() -- Enemy reached the base
+    if self.targetPathIndex > #pathPoints then
+      self.world:remove(self)
+      self:dealDamage() -- Enemy reached the base
       return false
     end
   else
@@ -53,17 +55,20 @@ function mt:update(dt)
 end
 
 return {
-  new = function(x, y, world)
+  new = function(x, y)
+    local world = GameState.getCurrent().world
+    local target = world:findItemsByType("Base")
+
     return setmetatable({
       x = x,
       y = y,
       w = const.tilesize,
       h = const.tilesize,
+      type = "Enemy",
       world = world,
       health = 100,
       speed = 100,
       maxSpeed = 100,
-      health = 100,
       target = target,
       targetPathIndex = 2,
       damage = 20
