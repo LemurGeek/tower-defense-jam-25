@@ -13,8 +13,8 @@ end
 function mt:update(dt)
   self.spawnTimer = self.spawnTimer - dt
   if self.spawnTimer <= 0 then
-  local world = GameState.getCurrent().world
-  GameState.getCurrent().world:add(Enemy.new(self.x + const.tilesize / 2, self.y + const.tilesize / 2))
+    local world = GameState.getCurrent().world
+    GameState.getCurrent().world:add(Enemy.new(self.x + const.tilesize / 2, self.y + const.tilesize / 2))
     self.spawnTimer = 2
   end
 end

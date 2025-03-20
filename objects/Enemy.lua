@@ -6,7 +6,7 @@ mt.__index = mt
 
 function mt:draw()
   love.graphics.setColor(love.math.colorFromBytes(176, 58, 72))
-  love.graphics.circle("fill", self.x, self.y, 10)
+  love.graphics.circle("fill", self.x, self.y, self.r)
 
   love.graphics.setColor(love.math.colorFromBytes(62, 105, 88))
   love.graphics.print("Health: " .. self.health, self.x - 30, self.y - 40)
@@ -62,8 +62,7 @@ return {
     return setmetatable({
       x = x,
       y = y,
-      w = const.tilesize,
-      h = const.tilesize,
+      r = const.tilesize / 4,
       type = "Enemy",
       world = world,
       health = 100,

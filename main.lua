@@ -1,4 +1,4 @@
-package.path = package.path .. ";./?.lua;entities/?.lua;levels/?.lua;states/?.lua"
+package.path = package.path .. ";./?.lua;objects/?.lua;levels/?.lua;states/?.lua"
 
 -- gridSize = 40 -- Each tile is 40x40 pixels
 -- gridWidth = 20 -- Number of columns
@@ -135,18 +135,23 @@ package.path = package.path .. ";./?.lua;entities/?.lua;levels/?.lua;states/?.lu
 -- end
 
 local GameState = require('GameState')
+local Tower = require("Tower")
+
 
 function love.load()
   GameState.setCurrent('Play')
+  newTower = Tower.new(240, 400, 'normal')
 end
 
 function love.update(dt)
   GameState.getCurrent():update(dt)
   GameState.update()
+  newTower:update(dt)
 end
 
 function love.draw()
   -- love.graphics.scale(2, 2)
   GameState.getCurrent():draw()
+  newTower:draw()
 end
 
