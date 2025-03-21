@@ -11,11 +11,11 @@ function mt:update(dt)
   -- Check if the mouse is inside the button area
   if mouseX >= self.x and mouseX <= self.x + self.width and mouseY >= self.y and mouseY <= self.y + self.height then
     -- Hover color
-    self.color = self.colorHover
+    self.currentColor = self.colorHover
 
     -- Check if the user clicks
     if love.mouse.isDown(1) then
-        self.color = self.colorClick
+        self.currentColor = self.colorClick
         self.buttonClick = true
     else
       if self.buttonClick then
@@ -26,12 +26,12 @@ function mt:update(dt)
     end
   else
     -- Unhover color
-    self.color = self.color
+    self.currentColor = self.color
   end
 end
 
 function mt:draw()
-  love.graphics.setColor(love.math.colorFromBytes(unpack(self.color)))
+  love.graphics.setColor(love.math.colorFromBytes(unpack(self.currentColor)))
   love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 
   love.graphics.setColor(1, 1, 1)  
@@ -49,6 +49,7 @@ return {
       color = color,
       colorHover = colorHover,
       colorClick = colorClick,
+      currentColor = color,
       text = text,
       buttonClick = buttonClick, -- Boolean variable for click event, TODO: work on different logic
       action = action
