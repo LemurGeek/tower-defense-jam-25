@@ -34,7 +34,7 @@ function mt:attack()
   for _, enemy in pairs(enemies) do
     local dist = math.sqrt((enemy.x - self.x)^2 + (enemy.y - self.y)^2)
     if dist < self.range then
-      self.world:add(Projectile.new(self.x, self.y, enemy, self.damage))
+      self.world:add(Projectile.new(self.x, self.y, enemy, self.damage, self.slowEffect))
       self.cooldown = self.fireRate
       break
     end

@@ -1,6 +1,5 @@
 local const = require('const')
 local GameState = require('GameState')
-local Tower = require("Tower")
 
 local mt = {}
 mt.__index = mt

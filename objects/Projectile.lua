@@ -32,7 +32,7 @@ end
 
 
 return {
-  new = function(x, y, target, damage)
+  new = function(x, y, target, damage, slowEffect)
     local world = GameState.getCurrent().world
 
     return setmetatable({
@@ -45,7 +45,7 @@ return {
       speed = 200,
       target = target,
       damage = damage,
-      slowEffect = false,
+      slowEffect = slowEffect,
     }, mt)
   end
 }
