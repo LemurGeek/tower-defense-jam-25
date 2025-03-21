@@ -42,6 +42,10 @@ function mt:trigger(event) -- , actor, data)
   if event == 'base:kill' then
     GameState.setCurrent('Dead')
   end
+
+  if event == 'tower:add' then
+    -- GameState.setCurrent('Win')
+  end
 end
 
 return {
