@@ -18,20 +18,12 @@ function mt:findItemsByType(typeName)
   return results -- Return a table of all matching items
 end
 
-function mt:towerBtnClick(selectedTower)
-  self.towerSelected = not self.towerSelected
-  self.selectedTower = selectedTower
-  print(self.selectedTower)
-  print(self.towerSelected)
-end
 
 return {
   new = function()
     local UI = setmetatable({ 
       items = {}, 
-      startX = 800, 
-      towerSelected = false,
-      selectedTower = '' 
+      startX = 800
     }, mt)
 
     return UI
