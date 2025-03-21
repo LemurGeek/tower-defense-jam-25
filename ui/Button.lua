@@ -20,7 +20,7 @@ function mt:update(dt)
     else
       if self.buttonClick then
         -- Action if clicked
-        self.action()
+        self.action('normal')
         self.buttonClick = false
       end
     end

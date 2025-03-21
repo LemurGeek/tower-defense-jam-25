@@ -1,7 +1,9 @@
 local GameState = require('GameState')
-local Level = require('Level')
 local World = require('World')
 local UI = require('UI')
+
+local Level = require('Level')
+local LevelUI = require('LevelUI')
 
 local mt = {}
 mt.__index = mt
@@ -49,7 +51,9 @@ return {
     -- Every time we instantiate the gamestate we also have a new instance of World and Level.
     state.world = World.new()
     state.level = Level.new('level_1', state)
+    
     state.UI = UI.new()
+    state.levelUI = LevelUI.new(state)
 
     return state
   end

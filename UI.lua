@@ -1,6 +1,3 @@
-local Button = require('ui.Button')
-local Box = require('ui.Box')
-
 local mt = {}
 mt.__index = mt
 
@@ -21,16 +18,21 @@ function mt:findItemsByType(typeName)
   return results -- Return a table of all matching items
 end
 
-
+function mt:towerBtnClick(selectedTower)
+  self.towerSelected = not self.towerSelected
+  self.selectedTower = selectedTower
+  print(self.selectedTower)
+  print(self.towerSelected)
+end
 
 return {
   new = function()
-    local UI = setmetatable({ items = {}, startX = 800 }, mt)
-
-    local PADDING = 5
-
-    UI:add(Box.new(UI.startX + PADDING, 0, 200 - PADDING, 800, {93, 114, 117}))
-    UI:add(Button.new((UI.startX + PADDING) + 50, 80, 100, 50, {92, 139, 147}, {102, 159, 167}, {112, 179, 187}, "Classic Tower", false, {})) -- TODO: add Action to click
+    local UI = setmetatable({ 
+      items = {}, 
+      startX = 800, 
+      towerSelected = false,
+      selectedTower = '' 
+    }, mt)
 
     return UI
   end
