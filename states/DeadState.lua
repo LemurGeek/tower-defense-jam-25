@@ -17,6 +17,10 @@ end
 function mt:trigger()
 end
 
+-- This gamestate ignores any events:
+function mt:mousepressed()
+end
+
 return {
   new = function()
     return setmetatable({ name = 'dead_state' }, mt)

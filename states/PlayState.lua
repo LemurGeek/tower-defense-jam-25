@@ -39,13 +39,29 @@ end
 
 -- Trigger function let you pass some "events" to the game state so a given entity need not to worry how to
 -- deal with some situation.
-function mt:trigger(event) -- , actor, data)
+function mt:trigger(event, actor, data)
   if event == 'base:kill' then
     GameState.setCurrent('Dead')
   end
 
   if event == 'tower:add' then
-    GameState.getCurrent().world:add(Tower.new(towerType, 240, "normal"))
+    GameState.getCurrent().world:add(Tower.new(data.x, data.y, data.type))
+  end
+end
+
+function mt:mousepressed(x, y, button)
+  -- World
+  for _, item in ipairs(self.world.items) do
+    if item.mousepressed then
+      item:mousepressed(x, y, button)
+    end
+  end
+
+  -- UI 
+  for _, itemUI in ipairs(self.UI.items) do
+    if itemUI.mousepressed then
+      itemUI:mousepressed(x, y, button)
+    end
   end
 end
 
