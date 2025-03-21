@@ -4,6 +4,7 @@ local UI = require('UI')
 
 local Level = require('Level')
 local LevelUI = require('LevelUI')
+local Tower = require("Tower")
 
 local mt = {}
 mt.__index = mt
@@ -44,7 +45,7 @@ function mt:trigger(event) -- , actor, data)
   end
 
   if event == 'tower:add' then
-    -- GameState.setCurrent('Win')
+    GameState.getCurrent().world:add(Tower.new(towerType, 240, "normal"))
   end
 end
 
