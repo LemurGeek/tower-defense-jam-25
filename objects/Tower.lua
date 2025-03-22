@@ -80,7 +80,7 @@ return {
         type = "Tower",
         towerType = 'slow',
         world = world,
-        range = 50,
+        range = 100,
         fireRate = 1.6,
         cooldown = 0,
         damage = 2,

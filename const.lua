@@ -1,3 +1,4 @@
 return {
-  tilesize = 40
+  tilesize = 40,
+  healthBarDisplayTime = 3
 }

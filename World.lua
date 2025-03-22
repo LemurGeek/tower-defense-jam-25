@@ -5,10 +5,6 @@ function mt:add(item)
   self.items[#self.items + 1] = item
 end
 
-function mt:move(item, new_x, new_y, param)
-  -- TODO
-end
-
 function mt:remove(item)
   for i, v in ipairs(self.items) do
     if v == item then

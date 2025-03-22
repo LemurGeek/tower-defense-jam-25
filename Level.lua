@@ -14,7 +14,7 @@ local TILES_TYPES = {
 
 return {
   new = function(lvl_name, game_state)
-    local lvl = setmetatable({ columns = 20, pathPoints = {} }, mt)
+    local lvl = setmetatable({ columns = 20, pathPoints = {}, waves = {} }, mt)
 
     lvl.data = require('levels.' .. lvl_name)
 
@@ -23,8 +23,8 @@ return {
 
       if v == 2 then 
         lvl.pathPoints[#lvl.pathPoints + 1] = { 
-          x = x + const.tilesize / 2, 
-          y = y + const.tilesize / 2 
+          x = x, 
+          y = y 
         }
       end
 

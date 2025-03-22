@@ -9,8 +9,6 @@ mt.__index = mt
 function mt:towerBtnClick(selectedTower)
   self.towerSelected = not self.towerSelected
   self.selectedTower = selectedTower
-  print(self.selectedTower)
-  print(self.towerSelected)
 end
 
 return {

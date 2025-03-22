@@ -1,19 +1,31 @@
 local const = require('const')
 local GameState = require('GameState')
+local anim8 = require('libs.anim8.anim8')
+local Helpers = require('Helpers')
 
 local mt = {}
 mt.__index = mt
 
 function mt:draw()
-  love.graphics.setColor(love.math.colorFromBytes(176, 58, 72))
-  love.graphics.circle("fill", self.x, self.y, self.r)
+  love.graphics.setColor(1, 1, 1) -- Reset color
+  self.animations.walk:draw(self.spriteSheet, self.x, self.y)
+    
+  -- Debug 
+  -- love.graphics.setColor(love.math.colorFromBytes(98, 76, 60))
+  -- love.graphics.rectangle('line', self.x, self.y, const.tilesize, const.tilesize)
 
-  love.graphics.setColor(love.math.colorFromBytes(62, 105, 88))
-  love.graphics.print("Health: " .. self.health, self.x - 30, self.y - 40)
+  -- Only draw the health bar if recently damaged
+  if self.showHealthBar then
+    Helpers.drawHealthBar(self.health, self.x, self.y)
+  end
 end
 
 function mt:takeDamage(damage)
   self.health = self.health - damage
+
+  -- Show the health bar and reset the timer
+  self.showHealthBar = true
+  self.healthBarTimer = const.healthBarDisplayTime
 end
 
 function mt:dealDamage(damage)
@@ -39,7 +51,7 @@ function mt:update(dt)
     return false
   end
 
-  if dist < 5 then
+  if dist < 1 then
     self.targetPathIndex = self.targetPathIndex + 1
     if self.targetPathIndex > #pathPoints then
       self.world:remove(self)
@@ -51,6 +63,15 @@ function mt:update(dt)
     self.y = self.y + (dirY / dist) * self.speed * dt
   end
 
+  self.animations.walk:update(dt)
+
+  -- Update the health bar timer
+  if self.showHealthBar then
+    self.healthBarTimer = self.healthBarTimer - dt
+    if self.healthBarTimer <= 0 then
+      self.showHealthBar = false
+    end
+  end
   return true
 end
 
@@ -59,13 +80,25 @@ return {
     local world = GameState.getCurrent().world
     local target = world:findItemsByType("Base")
 
+    local spriteIndex = math.random(2, 5)
+    local spriteSheet = love.graphics.newImage("assets/enemy0" .. spriteIndex .. "-sheet.png")
+    -- local spriteSheet = love.graphics.newImage("assets/enemy03-sheet.png")
+    local grid = anim8.newGrid(40, 40, spriteSheet:getWidth(), spriteSheet:getHeight())
+    local animations = {
+      walk = anim8.newAnimation(grid('1-4', 1), 0.1)
+    } 
+
     return setmetatable({
       x = x,
       y = y,
       r = const.tilesize / 4,
       type = "Enemy",
+      spriteSheet = spriteSheet,
+      animations = animations,
       world = world,
       health = 100,
+      showHealthBar = false,
+      healthBarTimer = 0,
       speed = 100,
       maxSpeed = 100,
       target = target,
